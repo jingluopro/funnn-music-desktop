@@ -20,7 +20,7 @@ const api_test = {
       }
     })
     return requestObj
-  }
+  },
 }
 
 export default api_test

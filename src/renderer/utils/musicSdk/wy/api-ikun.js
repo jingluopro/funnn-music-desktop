@@ -20,7 +20,7 @@ const api_ikun = {
       }
     })
     return requestObj
-  }
+  },
 }
 
 export default api_ikun
