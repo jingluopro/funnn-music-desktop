@@ -126,7 +126,6 @@ const parseTools = {
     })
   },
   getIntv(interval) {
-    if (!interval) return 0
     if (!interval.includes('.')) interval += '.0'
     let arr = interval.split(/:|\./)
     while (arr.length < 3) arr.unshift('0')

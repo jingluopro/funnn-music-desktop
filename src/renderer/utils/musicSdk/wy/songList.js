@@ -21,12 +21,10 @@ export default {
   sortList: [
     {
       name: '最热',
-      tid: 'hot',
       id: 'hot',
     },
     // {
     //   name: '最新',
-    //   tid: 'new',
     //   id: 'new',
     // },
   ],
@@ -39,9 +37,10 @@ export default {
     if (retryNum > 2) throw new Error('link try max num')
 
     const requestObj_listDetailLink = httpFetch(link)
-    const { url, statusCode } = await requestObj_listDetailLink.promise
+    const { headers: { location }, statusCode } = await requestObj_listDetailLink.promise
     // console.log(headers)
     if (statusCode > 400) return this.handleParseId(link, ++retryNum)
+    const url = location == null ? link : location
     return this.regExps.listDetailLink.test(url)
       ? url.replace(this.regExps.listDetailLink, '$1')
       : url.replace(this.regExps.listDetailLink2, '$1')
@@ -78,8 +77,6 @@ export default {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
         Cookie: this.cookie,
       },
-      credentials: 'omit',
-      cache: 'default',
       form: linuxapi({
         method: 'POST',
         url: 'https://music.163.com/api/v3/playlist/detail',

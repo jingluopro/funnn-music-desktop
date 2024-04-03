@@ -1,5 +1,4 @@
-import pako from 'pako'
-import { Buffer } from 'buffer'
+import { inflate } from 'zlib'
 import { toMD5 } from '../utils'
 import { httpFetch } from '../../request'
 
@@ -11,12 +10,10 @@ export const decodeLyric = str => new Promise((resolve, reject) => {
   for (let i = 0, len = buf_str.length; i < len; i++) {
     buf_str[i] = buf_str[i] ^ enc_key[i % 16]
   }
-  const result = pako.inflate(buf_str, { to: 'string' })
-  resolve(result)
-  // (err, result) => {
-  //   if (err) return reject(err)
-  //   resolve(result.toString())
-  // }
+  inflate(buf_str, (err, result) => {
+    if (err) return reject(err)
+    resolve(result.toString())
+  })
 })
 
 // s.content[0].lyricContent.forEach(([str]) => {
@@ -28,12 +25,12 @@ export const decodeLyric = str => new Promise((resolve, reject) => {
  * @param {*} params
  * @param {*} apiver
  */
-export const signatureParams = (params, platform = 'android', body = '') => {
+export const signatureParams = (params, apiver = 9) => {
   let keyparam = 'OIlwieks28dk2k092lksi2UIkp'
-  if (platform === 'web') keyparam = 'NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt'
+  if (apiver === 5) keyparam = 'NVPh5oo715z5DIWAeQlhMDsWXXQV4hwt'
   let param_list = params.split('&')
   param_list.sort()
-  let sign_params = `${keyparam}${param_list.join('')}${body}${keyparam}`
+  let sign_params = `${keyparam}${param_list.join('')}${keyparam}`
   return toMD5(sign_params)
 }
 
@@ -46,7 +43,6 @@ export const signatureParams = (params, platform = 'android', body = '') => {
 export const createHttpFetch = async(url, options, retryNum = 0) => {
   if (retryNum > 2) throw new Error('try max num')
   let result
-  options.cache = 'default'
   try {
     result = await httpFetch(url, options).promise
   } catch (err) {

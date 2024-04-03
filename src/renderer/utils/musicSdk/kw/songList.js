@@ -13,12 +13,10 @@ export default {
   sortList: [
     {
       name: '最新',
-      tid: 'new',
       id: 'new',
     },
     {
       name: '最热',
-      tid: 'hot',
       id: 'hot',
     },
   ],
@@ -467,7 +465,7 @@ export default {
           list: body.abslist.map(item => {
             return {
               play_count: this.formatPlayCount(item.playcnt),
-              id: item.playlistid,
+              id: String(item.playlistid),
               author: decodeName(item.nickname),
               name: decodeName(item.name),
               total: item.songnum,

@@ -73,7 +73,7 @@ const mrcTools = {
     if (!url) return Promise.resolve('')
     return this.getText(url)
   },
-  async getMusicInfo(songInfo) {
+  getMusicInfo(songInfo) {
     return songInfo.mrcUrl == null
       ? getMusicInfo(songInfo.copyrightId)
       : songInfo

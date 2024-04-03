@@ -1,6 +1,6 @@
 import { httpFetch } from '../../request'
 import { decodeName, formatPlayTime, sizeFormate, dateFormat, formatPlayCount } from '../../index'
-import infSign from './vendors/infSign.min'
+import infSign from '@renderer/utils/musicSdk/kg/vendors/infSign.min'
 import { signatureParams } from './util'
 
 const handleSignature = (id, page, limit) => new Promise((resolve, reject) => {
@@ -26,27 +26,22 @@ export default {
   sortList: [
     {
       name: '推荐',
-      tid: 'recommend',
       id: '5',
     },
     {
       name: '最热',
-      tid: 'hot',
       id: '6',
     },
     {
       name: '最新',
-      tid: 'new',
       id: '7',
     },
     {
       name: '热藏',
-      tid: 'hot_collect',
       id: '3',
     },
     {
       name: '飙升',
-      tid: 'rise',
       id: '8',
     },
   ],
@@ -264,7 +259,6 @@ export default {
   async createHttp(url, options, retryNum = 0) {
     if (retryNum > 2) throw new Error('try max num')
     let result
-    options.cache = 'default'
     try {
       result = await httpFetch(url, options).promise
     } catch (err) {
@@ -462,7 +456,7 @@ export default {
       total -= limit
       page += 1
       const params = 'appid=1058&global_specialid=' + id + '&specialid=0&plat=0&version=8000&page=' + page + '&pagesize=' + limit + '&srcappid=2919&clientver=20000&clienttime=1586163263991&mid=1586163263991&uuid=1586163263991&dfid=-'
-      tasks.push(this.createHttp(`https://mobiles.kugou.com/api/v5/special/song_v2?${params}&signature=${signatureParams(params, 'web')}`, {
+      tasks.push(this.createHttp(`https://mobiles.kugou.com/api/v5/special/song_v2?${params}&signature=${signatureParams(params, 5)}`, {
         headers: {
           mid: '1586163263991',
           Referer: 'https://m3ws.kugou.com/share/index.php',
@@ -478,7 +472,7 @@ export default {
     let id = global_collection_id
     if (id.length > 1000) throw new Error('get list error')
     const params = 'appid=1058&specialid=0&global_specialid=' + id + '&format=jsonp&srcappid=2919&clientver=20000&clienttime=1586163242519&mid=1586163242519&uuid=1586163242519&dfid=-'
-    let info = await this.createHttp(`https://mobiles.kugou.com/api/v5/special/info_v2?${params}&signature=${signatureParams(params, 'web')}`, {
+    let info = await this.createHttp(`https://mobiles.kugou.com/api/v5/special/info_v2?${params}&signature=${signatureParams(params, 5)}`, {
       headers: {
         mid: '1586163242519',
         Referer: 'https://m3ws.kugou.com/share/index.php',
@@ -616,10 +610,10 @@ export default {
         Referer: link,
       },
     })
-    const { url: location, statusCode, body } = await requestObj_listDetailLink.promise
+    const { headers: { location }, statusCode, body } = await requestObj_listDetailLink.promise
     // console.log(body, location)
     if (statusCode > 400) return this.getUserListDetail(link, page, ++retryNum)
-    if (location.split('?')[0] != link.split('?')[0]) {
+    if (location) {
       // console.log(location)
       if (location.includes('global_collection_id')) return this.getUserListDetail2(location.replace(/^.*?global_collection_id=(\w+)(?:&.*$|#.*$|$)/, '$1'))
       if (location.includes('chain=')) return this.getUserListDetail3(location.replace(/^.*?chain=(\w+)(?:&.*$|#.*$|$)/, '$1'), page)
@@ -635,7 +629,7 @@ export default {
         } else return this.getUserListDetail3(location.replace(/.+\/(\w+).html(?:\?.*|&.*$|#.*$|$)/, '$1'), page)
       }
       // console.log('location', location)
-      // return this.getUserListDetail(link, page, ++retryNum)
+      return this.getUserListDetail(location, page, ++retryNum)
     }
     if (typeof body == 'string') return this.getUserListDetail2(body.replace(/^[\s\S]+?"global_collection_id":"(\w+)"[\s\S]+?$/, '$1'))
     if (body.errcode !== 0) return this.getUserListDetail(link, page, ++retryNum)
