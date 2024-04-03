@@ -1,6 +1,6 @@
 import { httpFetch } from '../../request'
 import { decodeName, formatPlayTime, sizeFormate, dateFormat, formatPlayCount } from '../../index'
-import infSign from '@renderer/utils/musicSdk/kg/vendors/infSign.min'
+import infSign from './vendors/infSign.min'
 import { signatureParams } from './util'
 
 const handleSignature = (id, page, limit) => new Promise((resolve, reject) => {
@@ -26,22 +26,27 @@ export default {
   sortList: [
     {
       name: '推荐',
+      tid: 'recommend',
       id: '5',
     },
     {
       name: '最热',
+      tid: 'hot',
       id: '6',
     },
     {
       name: '最新',
+      tid: 'new',
       id: '7',
     },
     {
       name: '热藏',
+      tid: 'hot_collect',
       id: '3',
     },
     {
       name: '飙升',
+      tid: 'rise',
       id: '8',
     },
   ],
@@ -259,6 +264,7 @@ export default {
   async createHttp(url, options, retryNum = 0) {
     if (retryNum > 2) throw new Error('try max num')
     let result
+    options.cache = 'default'
     try {
       result = await httpFetch(url, options).promise
     } catch (err) {
@@ -610,10 +616,10 @@ export default {
         Referer: link,
       },
     })
-    const { headers: { location }, statusCode, body } = await requestObj_listDetailLink.promise
+    const { url: location, statusCode, body } = await requestObj_listDetailLink.promise
     // console.log(body, location)
     if (statusCode > 400) return this.getUserListDetail(link, page, ++retryNum)
-    if (location) {
+    if (location.split('?')[0] != link.split('?')[0]) {
       // console.log(location)
       if (location.includes('global_collection_id')) return this.getUserListDetail2(location.replace(/^.*?global_collection_id=(\w+)(?:&.*$|#.*$|$)/, '$1'))
       if (location.includes('chain=')) return this.getUserListDetail3(location.replace(/^.*?chain=(\w+)(?:&.*$|#.*$|$)/, '$1'), page)
@@ -629,7 +635,7 @@ export default {
         } else return this.getUserListDetail3(location.replace(/.+\/(\w+).html(?:\?.*|&.*$|#.*$|$)/, '$1'), page)
       }
       // console.log('location', location)
-      return this.getUserListDetail(location, page, ++retryNum)
+      // return this.getUserListDetail(link, page, ++retryNum)
     }
     if (typeof body == 'string') return this.getUserListDetail2(body.replace(/^[\s\S]+?"global_collection_id":"(\w+)"[\s\S]+?$/, '$1'))
     if (body.errcode !== 0) return this.getUserListDetail(link, page, ++retryNum)

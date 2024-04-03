@@ -202,7 +202,7 @@ export default {
 
     const requestBody = { uid: '', devId: '', sFrom: 'kuwo_sdk', user_type: 'AP', carSource: 'kwplayercar_ar_6.0.1.0_apk_keluze.apk', id, pn: page - 1, rn: this.limit }
     const requestUrl = `https://wbd.kuwo.cn/api/bd/bang/bang_info?${wbdCrypto.buildParam(requestBody)}`
-    const request = httpFetch(requestUrl).promise
+    const request = httpFetch(requestUrl, { cache: 'default' }).promise
 
     return request.then(({ statusCode, body }) => {
       const rawData = wbdCrypto.decodeData(body)

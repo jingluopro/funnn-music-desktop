@@ -9,7 +9,7 @@ export const getPlayType = (highQuality: boolean, musicInfo: LX.Music.MusicInfo 
   if ('progress' in musicInfo || musicInfo.source == 'local') return null
   let type: LX.Quality = '128k'
   let list = qualityList.value[musicInfo.source]
-  if (highQuality && musicInfo.meta._qualitys['320k'] && list?.includes('320k')) type = '320k'
+  if (highQuality && musicInfo.meta._qualitys['flac24bit'] && list?.includes('flac24bit')) type = 'flac24bit'
   return type
 }
 

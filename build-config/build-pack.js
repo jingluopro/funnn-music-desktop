@@ -46,7 +46,7 @@ const options = {
   publish: [
     {
       provider: 'github',
-      owner: 'lyswhut',
+      owner: 'ikun0014',
       repo: 'lx-music-desktop',
     },
   ],
@@ -58,7 +58,7 @@ const options = {
 const winOptions = {
   win: {
     icon: './resources/icons/icon.ico',
-    legalTrademarks: 'lyswhut',
+    legalTrademarks: 'ikun0014',
     // artifactName: '${productName}-v${version}-${env.ARCH}-${env.TARGET}.${ext}',
   },
   nsis: {
@@ -67,7 +67,7 @@ const winOptions = {
     allowToChangeInstallationDirectory: true,
     differentialPackage: true,
     license: './licenses/license.rtf',
-    shortcutName: 'LX Music',
+    shortcutName: 'LX Music Mod',
   },
 }
 /**
@@ -76,14 +76,14 @@ const winOptions = {
  */
 const linuxOptions = {
   linux: {
-    maintainer: 'lyswhut <lyswhut@qq.com>',
+    maintainer: 'ikun0014 <ikun0014@qq.com>',
     // artifactName: '${productName}-${version}.${env.ARCH}.${ext}',
     icon: './resources/icons',
     category: 'Utility;AudioVideo;Audio;Player;Music;',
     desktop: {
-      Name: 'LX Music',
-      'Name[zh_CN]': 'LX Music',
-      'Name[zh_TW]': 'LX Music',
+      Name: 'LX Music Mod',
+      'Name[zh_CN]': 'LX Music Mod',
+      'Name[zh_TW]': 'LX Music Mod',
       Encoding: 'UTF-8',
       MimeType: 'x-scheme-handler/lxmusic',
       StartupNotify: 'false',
@@ -113,7 +113,7 @@ const macOptions = {
       {
         x: 106,
         y: 252,
-        name: 'LX Music',
+        name: 'LX Music Mod',
       },
       {
         x: 490,

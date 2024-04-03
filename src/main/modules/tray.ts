@@ -128,7 +128,7 @@ export const createTray = () => {
   // 托盘
   tray = new Tray(nativeImage.createFromPath(iconPath))
 
-  tray.setToolTip('LX Music')
+  tray.setToolTip('LX Music Mod')
   createMenu()
   tray.setIgnoreDoubleClickEvents(true)
   tray.on('click', () => {

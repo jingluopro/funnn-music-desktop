@@ -1,8 +1,8 @@
+// import BackgroundTimer from 'react-native-background-timer'
 // import { httpGet, httpFetch } from '../../request'
-import { WIN_MAIN_RENDERER_EVENT_NAME } from '@common/ipcNames'
-import { rendererInvoke } from '@common/rendererIpc'
-import { createCipheriv, createDecipheriv } from 'crypto'
 import { toMD5 } from '../utils'
+import { aesEncryptSync, aesDecryptSync, AES_MODE } from '@/utils/nativeModules/crypto'
+export { default as decodeLyric } from './decodeLyric'
 
 // const kw_token = {
 //   token: null,
@@ -39,7 +39,7 @@ export const formatSinger = rawData => rawData.replace(/&/g, '、')
 
 export const matchToken = headers => {
   try {
-    return headers['set-cookie'][0].match(/kw_token=(\w+)/)[1]
+    return headers['set-cookie'].match(/kw_token=(\w+)/)[1]
   } catch (err) {
     return null
   }
@@ -62,8 +62,6 @@ export const matchToken = headers => {
 //     resolve(token)
 //   })
 // })
-
-export const decodeLyric = base64Data => rendererInvoke(WIN_MAIN_RENDERER_EVENT_NAME.handle_kw_decode_lyric, base64Data)
 
 // export const tokenRequest = async(url, options = {}) => {
 //   let token = kw_token.token
@@ -183,34 +181,41 @@ export const lrcTools = {
 }
 
 
-const createAesEncrypt = (buffer, mode, key, iv) => {
-  const cipher = createCipheriv(mode, key, iv)
-  return Buffer.concat([cipher.update(buffer), cipher.final()])
-}
+// const createAesEncrypt = (buffer, mode, key, iv) => {
+//   const cipher = createCipheriv(mode, key, iv)
+//   return Buffer.concat([cipher.update(buffer), cipher.final()])
+// }
 
-const createAesDecrypt = (buffer, mode, key, iv) => {
-  const cipher = createDecipheriv(mode, key, iv)
-  return Buffer.concat([cipher.update(buffer), cipher.final()])
-}
+// const createAesDecrypt = (buffer, mode, key, iv) => {
+//   const cipher = createDecipheriv(mode, key, iv)
+//   return Buffer.concat([cipher.update(buffer), cipher.final()])
+// }
 
 export const wbdCrypto = {
   aesMode: 'aes-128-ecb',
-  aesKey: Buffer.from([112, 87, 39, 61, 199, 250, 41, 191, 57, 68, 45, 114, 221, 94, 140, 228], 'binary'),
+  // aesKey: Buffer.from([112, 87, 39, 61, 199, 250, 41, 191, 57, 68, 45, 114, 221, 94, 140, 228], 'binary'),
+  aesKey: 'cFcnPcf6Kb85RC1y3V6M5A==',
   aesIv: '',
   appId: 'y67sprxhhpws',
   decodeData(base64Result) {
-    const data = Buffer.from(decodeURIComponent(base64Result), 'base64')
-    return JSON.parse(createAesDecrypt(data, this.aesMode, this.aesKey, this.aesIv).toString())
+    // const data = Buffer.from(decodeURIComponent(base64Result), 'base64')
+    // return JSON.parse(createAesDecrypt(data, this.aesMode, this.aesKey, this.aesIv).toString())
+    const data = decodeURIComponent(base64Result)
+    return JSON.parse(aesDecryptSync(data, this.aesKey, this.aesIv, AES_MODE.ECB_128_NoPadding))
   },
   createSign(data, time) {
     const str = `${this.appId}${data}${time}`
     return toMD5(str).toUpperCase()
   },
   buildParam(jsonData) {
-    const data = Buffer.from(JSON.stringify(jsonData))
+    // const data = Buffer.from(JSON.stringify(jsonData))
+    // const time = Date.now()
+
+    // const encodeData = createAesEncrypt(data, this.aesMode, this.aesKey, this.aesIv).toString('base64')
+    const data = Buffer.from(JSON.stringify(jsonData)).toString('base64')
     const time = Date.now()
 
-    const encodeData = createAesEncrypt(data, this.aesMode, this.aesKey, this.aesIv).toString('base64')
+    const encodeData = aesEncryptSync(data, this.aesKey, this.aesIv, AES_MODE.ECB_128_NoPadding)
     const sign = this.createSign(encodeData, time)
 
     return `data=${encodeURIComponent(encodeData)}&time=${time}&appId=${this.appId}&sign=${sign}`

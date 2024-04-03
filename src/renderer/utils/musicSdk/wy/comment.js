@@ -151,7 +151,6 @@ export default {
     if (this._requestObj2) this._requestObj2.cancelHttp()
 
     const id = 'R_SO_4_' + songmid
-    page = page - 1
 
     const _requestObj2 = httpFetch(`https://music.163.com/weapi/v1/resource/hotcomments/${id}`, {
       method: 'post',
@@ -163,7 +162,7 @@ export default {
       form: weapi({
         rid: id,
         limit,
-        offset: limit * page,
+        offset: limit * (page - 1),
         beforeTime: Date.now().toString(),
       }),
     })

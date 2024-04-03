@@ -9,6 +9,7 @@ export default {
 
     const _requestObj = httpFetch('http://gateway.kugou.com/api/v3/search/hot_tab?signature=ee44edb9d7155821412d220bcaf509dd&appid=1005&clientver=10026&plat=0', {
       method: 'get',
+      cache: null,
       headers: {
         dfid: '1ssiv93oVqMp27cirf2CvoF1',
         mid: '156798703528610303473757548878786007104',
