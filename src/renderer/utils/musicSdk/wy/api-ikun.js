@@ -23,5 +23,4 @@ const api_ikun = {
   },
 }
 
-
 export default api_ikun
