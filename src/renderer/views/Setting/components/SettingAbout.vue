@@ -14,7 +14,7 @@ dd
     | 地阅读常见问题后，
   .p.small
     | 仍有问题可加企鹅群&nbsp;
-    span.hover(:aria-label="$t('setting__click_open')" @click="openUrl('https://qm.qq.com/cgi-bin/qm/qr?k=nLe0RrsIKIWJOBfObmCHuHwpboU1gOF1&jump_from=webapi&authKey=vDfKYRlw8H8wBUlr3mEUb0QfNCw5iiwHtBPsnpyFmwiMPBtkV1ImSub/F2Ya34eF')") 830125506
+    span.hover(:aria-label="$t('setting__click_open')" @click="openUrl('https://qm.qq.com/cgi-bin/qm/qr?k=3zPqfEOmWyCnqaPotttfrn66wpI1rt5T&jump_from=webapi&authKey=9xLSpFJFeVGvMRzuyRfZm87FsieykS+WNx5Jv81As1giQJyJVSSQ8udgfoQSLGls')") 607047319
     | &nbsp;反馈
 
 </template>
