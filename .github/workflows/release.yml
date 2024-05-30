@@ -47,8 +47,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "4.0.1"
+          tag_name: "5.0.1"
           body_path: release.txt
           files: ./build/*
 
- 
+
