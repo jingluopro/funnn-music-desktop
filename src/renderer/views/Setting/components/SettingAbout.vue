@@ -2,19 +2,19 @@
 dt#about {{ $t('setting__about') }}
 dd
   .p.small
-    | 本软件完全免费，代码已开源，开源地址：
-    span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://github.com/ikun0014/lx-music-desktop#readme')") https://github.com/ikun0014/lx-music-desktop
+    | 本软件完全免费，代码开源，开源地址：
+    span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://www.jingluo.love/#readme')") hhttps://www.jingluo.love/
   .p.small
     | 软件的常见问题可转至：
-    span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://lyswhut.github.io/lx-music-doc/desktop/faq')") 常见问题
+    span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://www.jingluo.love/')") 常见问题
   .p.small
     strong 本软件没有客服
     | ，但我们整理了一些常见的使用问题，
     strong 仔细 仔细 仔细
     | 地阅读常见问题后，
   .p.small
-    | 仍有问题可加企鹅群&nbsp;
-    span.hover(:aria-label="$t('setting__click_open')" @click="openUrl('https://qm.qq.com/cgi-bin/qm/qr?k=3zPqfEOmWyCnqaPotttfrn66wpI1rt5T&jump_from=webapi&authKey=9xLSpFJFeVGvMRzuyRfZm87FsieykS+WNx5Jv81As1giQJyJVSSQ8udgfoQSLGls')") 607047319
+    | 仍有问题可访问&nbsp;
+    span.hover(:aria-label="$t('setting__click_open')" @click="openUrl('https://www.jingluo.love/')") https://www.jingluo.love
     | &nbsp;反馈
 
 </template>
