@@ -67,7 +67,7 @@ const winOptions = {
     allowToChangeInstallationDirectory: true,
     differentialPackage: true,
     license: './licenses/license.rtf',
-    shortcutName: 'LX Music Mod',
+    shortcutName: 'Fun音乐',
   },
 }
 /**
