@@ -81,9 +81,9 @@ const linuxOptions = {
     icon: './resources/icons',
     category: 'Utility;AudioVideo;Audio;Player;Music;',
     desktop: {
-      Name: 'LX Music Mod',
-      'Name[zh_CN]': 'LX Music Mod',
-      'Name[zh_TW]': 'LX Music Mod',
+      Name: 'Fun音乐',
+      'Name[zh_CN]': 'Fun音乐',
+      'Name[zh_TW]': 'Fun音乐',
       Encoding: 'UTF-8',
       MimeType: 'x-scheme-handler/lxmusic',
       StartupNotify: 'false',
@@ -113,7 +113,7 @@ const macOptions = {
       {
         x: 106,
         y: 252,
-        name: 'LX Music Mod',
+        name: 'Fun音乐',
       },
       {
         x: 490,

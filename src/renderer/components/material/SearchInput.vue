@@ -57,7 +57,7 @@ export default {
   props: {
     placeholder: {
       type: String,
-      default: 'Search for something...',
+      default: 'Fun音乐-鲸落出品~~🐋',
     },
     list: {
       type: Array,

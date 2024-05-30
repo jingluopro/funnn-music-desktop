@@ -8,7 +8,7 @@ const sources: Array<{
 }> = [
     {
       id: 'ikun',
-      name: 'ikun接口',
+      name: '鲸落接口',
       disabled: false,
       supportQualitys: {
         kg: ['128k', '320k', 'flac', 'flac24bit'],
