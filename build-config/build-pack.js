@@ -47,7 +47,7 @@ const options = {
     {
       provider: 'github',
       owner: 'ikun0014',
-      repo: 'lx-music-desktop',
+      repo: 'Fun音乐',
     },
   ],
 }
