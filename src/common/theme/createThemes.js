@@ -6,30 +6,6 @@ const { createThemeColors } = require('./utils')
 
 const defaultThemes = [
   {
-    id: 'green',
-    name: '绿意盎然',
-    isDark: false,
-    isDarkFont: false,
-    config: {
-      primary: 'rgb(77, 175, 124)',
-      font: 'rgb(33, 33, 33)',
-      '--color-app-background': 'var(--color-primary-light-600-alpha-700)',
-      '--color-main-background': 'rgba(255, 255, 255, 1)',
-      '--color-nav-font': 'var(--color-primary)',
-      '--background-image': 'none',
-      '--background-image-position': 'center',
-      '--background-image-size': 'cover',
-
-      '--color-btn-hide': '#3bc2b2',
-      '--color-btn-min': '#85c43b',
-      '--color-btn-close': '#fab4a0',
-
-      '--color-badge-primary': 'var(--color-primary)',
-      '--color-badge-secondary': '#4baed5',
-      '--color-badge-tertiary': '#e7aa36',
-    },
-  },
-  {
     id: 'blue',
     name: '蓝田生玉',
     isDark: false,
@@ -51,6 +27,30 @@ const defaultThemes = [
       '--color-badge-primary': 'var(--color-primary)',
       '--color-badge-secondary': '#5cbf9b',
       '--color-badge-tertiary': '#5cbf9b',
+    },
+  },
+  {
+    id: 'green',
+    name: '绿意盎然',
+    isDark: false,
+    isDarkFont: false,
+    config: {
+      primary: 'rgb(77, 175, 124)',
+      font: 'rgb(33, 33, 33)',
+      '--color-app-background': 'var(--color-primary-light-600-alpha-700)',
+      '--color-main-background': 'rgba(255, 255, 255, 1)',
+      '--color-nav-font': 'var(--color-primary)',
+      '--background-image': 'none',
+      '--background-image-position': 'center',
+      '--background-image-size': 'cover',
+
+      '--color-btn-hide': '#3bc2b2',
+      '--color-btn-min': '#85c43b',
+      '--color-btn-close': '#fab4a0',
+
+      '--color-badge-primary': 'var(--color-primary)',
+      '--color-badge-secondary': '#4baed5',
+      '--color-badge-tertiary': '#e7aa36',
     },
   },
   {
