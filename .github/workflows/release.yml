@@ -1,20 +1,21 @@
 name: Build
-
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
+  schedule:
+    - cron: 0 17 * * 5
+  workflow_dispatch:
 
 env:
   IS_CI: 'true'
-  time : 'true'
 jobs:
+  
   Windows:
     name: Windows
     runs-on: windows-latest
     env:
       NPM_CACHE: '%APPDATA%\npm-cache'
-    # needs: CheckCode
     steps:
       - name: Check out git repository
         uses: actions/checkout@v4
@@ -22,33 +23,52 @@ jobs:
       - name: Setup Node Env
         uses: ./.github/actions/setup
 
+      - name: Set version
+        run: |
+            $versionFile = "version.txt"
+            if (-not (Test-Path $versionFile)) {
+                Set-Content -Path $versionFile -Value "0.0.0"
+            }
+            $version = Get-Content -Path $versionFile
+            $versionArray = $version.Split('.')
+            $versionArray[2] = [int]$versionArray[2] + 1
+            if ($versionArray[2] -eq 20) {
+                $versionArray[2] = 0
+                $versionArray[1] = [int]$versionArray[1] + 1
+                if ($versionArray[1] -eq 20) {
+                    $versionArray[1] = 0
+                    $versionArray[0] = [int]$versionArray[0] + 1
+                }
+            }
+            $newVersion = $versionArray -join '.'
+            Set-Content -Path $versionFile -Value $newVersion
+            echo "version=$newVersion" >> $env:GITHUB_ENV
+          
+      - name: Commit version.txt
+        run: |
+            git config --local user.email "your_email@example.com"
+            git config --local user.name "Your Name"
+            git add version.txt
+            git commit -m "Update version.txt"
+            git push
       - name: Build src code
         run: |
           git status --porcelain
           npm run pack:win
 
-      # - name: Release package
-      #   run: |
-      #     npm run publish:win:7z:x64
-      #     npm run publish:win:7z:arm64
-      #     npm run publish:win:setup:arm64
-      #     npm run publish:win:setup:x64
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     BT_TOKEN: ${{ secrets.BT_TOKEN }}
-
+      
       - name: Generate file MD5
         run: |
-          echo "下载软件app">> release.txt
-          cd build
-          Get-FileHash *.exe,*.7z -Algorithm MD5 | Format-List
+          echo "发布文件" >> release.txt
+          ls build
+          Get-FileHash build/*.exe,build/*.7z -Algorithm MD5 | Format-List
+
+          
       - name: 发布到release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "6.0.1"
+          tag_name: ${{ env.version }}
           body_path: release.txt
-          files: ./build/*
-
-
+          files: ./build/*.exe
