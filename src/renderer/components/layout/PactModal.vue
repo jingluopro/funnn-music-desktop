@@ -74,7 +74,10 @@ export default {
       }, 2e3)
     },
     handleClose(isExit) {
-      if (isExit) { quitApp(true); return }
+      if (isExit) {
+        quitApp(true)
+        return
+      }
       isShowPact.value = false
     },
     openUrl(url) {

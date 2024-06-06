@@ -13,20 +13,13 @@ const winEvent = () => {
   if (!browserWindow) return
 
   browserWindow.on('close', event => {
-    if (
-      global.lx.isSkipTrayQuit ||
-      !global.lx.appSetting['tray.enable'] ||
-      // linux下，如果不是点击软件上的关闭按钮退出的操作都直接退出
-      // https://github.com/lyswhut/lx-music-desktop/issues/191
-      (isLinux && !global.lx.isTrafficLightClose)
-    ) {
+    if (global.lx.isSkipTrayQuit || !global.lx.appSetting['tray.enable']) {
       browserWindow!.setProgressBar(-1)
       // global.lx.mainWindowClosed = true
       global.lx.event_app.main_window_close()
       return
     }
 
-    global.lx.isTrafficLightClose &&= false
     event.preventDefault()
     browserWindow!.hide()
   })
