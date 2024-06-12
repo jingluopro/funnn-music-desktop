@@ -5,7 +5,7 @@ import { dnsLookup } from '../utils'
 
 const api_test = {
   getMusicUrl(songInfo, type) {
-    const requestObj = httpFetch(`https://lxmusic.ikunshare.com:9763/url/kg/${songInfo._types[type].hash}/${type}`, {
+    const requestObj = httpFetch(`http://110.42.111.49:1314/url/kg/${songInfo._types[type].hash}/${type}`, {
       method: 'get',
       timeout,
       headers,
