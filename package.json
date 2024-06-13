@@ -1,9 +1,9 @@
 {
-  "name": "lx-music-desktop",
-  "version": "2.9.4",
+  "name": "lx-music-desktop-mod",
+  "version": "2.9.5",
   "description": "一个免费的音乐查找助手",
   "main": "./dist/main.js",
-  "productName": "lx-music-desktop",
+  "productName": "lx-music-desktop-mod",
   "scripts": {
     "pack": "node build-config/pack.js && npm run pack:win:setup:x64",
     "pack:win": "node build-config/pack.js && npm run pack:win:setup:x64 && npm run pack:win:setup:x86 && npm run pack:win:setup:arm64 && npm run pack:win:setup:x86_64 && npm run pack:win:7z",
@@ -91,7 +91,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lyswhut/lx-music-desktop.git"
+    "url": "git+https://github.com/ikun0014/lx-music-desktop-mod.git"
   },
   "keywords": [
     "music-player",
@@ -99,8 +99,8 @@
     "vuejs3"
   ],
   "author": {
-    "name": "lyswhut",
-    "email": "lyswhut@qq.com"
+    "name": "ikun0014",
+    "email": "ikun0014@qq.com"
   },
   "license": "Apache-2.0",
   "bugs": {
