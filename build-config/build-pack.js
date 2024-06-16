@@ -46,7 +46,7 @@ const options = {
   publish: [
     {
       provider: 'github',
-      owner: 'ikun0014',
+      owner: 'ikunshare',
       repo: 'lx-music-desktop-mod',
     },
   ],
@@ -58,7 +58,7 @@ const options = {
 const winOptions = {
   win: {
     icon: './resources/icons/icon.ico',
-    legalTrademarks: 'ikun0014',
+    legalTrademarks: 'ikunshare',
     // artifactName: '${productName}-v${version}-${env.ARCH}-${env.TARGET}.${ext}',
   },
   nsis: {
@@ -76,7 +76,7 @@ const winOptions = {
  */
 const linuxOptions = {
   linux: {
-    maintainer: 'ikun0014 <ikun0014@qq.com>',
+    maintainer: 'ikunshare <ikun0014@qq.com>',
     // artifactName: '${productName}-${version}.${env.ARCH}.${ext}',
     icon: './resources/icons',
     category: 'Utility;AudioVideo;Audio;Player;Music;',

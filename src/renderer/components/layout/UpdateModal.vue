@@ -21,7 +21,7 @@ material-modal(:show="versionInfo.showModal" max-width="60%" @close="handleClose
           p 更新信息获取失败，可能是无法访问Github导致的，请手动检查更新！
           p
             | 检查方法：打开
-            base-btn(min aria-label="点击打开" @click="handleOpenUrl('https://github.com/ikun0014/lx-music-desktop-mod/releases')") 软件发布页
+            base-btn(min aria-label="点击打开" @click="handleOpenUrl('https://github.com/ikunshare/lx-music-desktop-mod/releases')") 软件发布页
             | 或
             base-btn(min aria-label="点击打开" @click="handleOpenUrl('https://ikunruku.lanzouo.com/b007so8e7a/')") 网盘
             | (密码：

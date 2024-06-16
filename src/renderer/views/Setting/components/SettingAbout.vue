@@ -3,7 +3,7 @@ dt#about {{ $t('setting__about') }}
 dd
   .p.small
     | 本软件完全免费，代码已开源，开源地址：
-    span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://github.com/ikun0014/lx-music-desktop#readme')") https://github.com/ikun0014/lx-music-desktop
+    span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://github.com/ikunshare/lx-music-desktop#readme')") https://github.com/ikunshare/lx-music-desktop
   .p.small
     | 软件的常见问题可转至：
     span.hover.underline(:aria-label="$t('setting__click_open')" @click="openUrl('https://lyswhut.github.io/lx-music-doc/desktop/faq')") 常见问题

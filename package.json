@@ -91,7 +91,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ikun0014/lx-music-desktop-mod.git"
+    "url": "git+https://github.com/ikunshare/lx-music-desktop-mod.git"
   },
   "keywords": [
     "music-player",
@@ -99,7 +99,7 @@
     "vuejs3"
   ],
   "author": {
-    "name": "ikun0014",
+    "name": "ikunshare",
     "email": "ikun0014@qq.com"
   },
   "license": "Apache-2.0",
